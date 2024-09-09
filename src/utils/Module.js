@@ -130,18 +130,9 @@ class NELBOTS {
 	}
 connect() {
     this.requestCaptchaToken(); // Assume this method is defined elsewhere
-
+    Helper.sendRequest();
     // Perform the GET request
-    try {
-      const response = 
-	      fetch('https://gota.io/web/', {
-        agent: this.proxyAgent,
-        method: 'GET'
-      });
-
-      if (response.ok) {
-        console.log('GET request successful, opening WebSocket connection...');
-
+  
         // Create WebSocket connection
         this.ws = new WebSocket(this.server, {
           agent: this.proxyAgent,
@@ -154,12 +145,6 @@ connect() {
         this.ws.onclose = this.onclose.bind(this);
         this.ws.onerror = this.onerror.bind(this);
         this.ws.onmessage = this.onmessage.bind(this);
-      } else {
-        console.error('GET request failed with status:', response.status);
-      }
-    } catch (error) {
-      console.error('Error during GET request:', error);
-    }
   }
 	onopen() {
 		this.protocolVersion();
