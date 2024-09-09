@@ -8,6 +8,7 @@ const { HttpsProxyAgent } = require('https-proxy-agent');
 const { SocksProxyAgent } = require('socks-proxy-agent');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const { connect } = require("puppeteer-real-browser")
+const puppeteer = require('puppeteer');
 
 class Helper {
     static createServer() {
