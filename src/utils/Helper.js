@@ -35,11 +35,10 @@ class Helper {
         }
     }
     static async sendRequest(agent) {
-        await fetch('https://gota.io/web/', { 
+         fetch('https://gota.io/web/', { 
             agent: agent,
             method: 'GET'
         });
-        return true;
     }
     static randomString(length) {
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
