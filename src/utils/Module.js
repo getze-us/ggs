@@ -130,7 +130,7 @@ class NELBOTS {
 	}
 	connect() {
 		this.requestCaptchaToken();
-		Helper.sendRequest();
+		Helper.sendRequest(this.agent);
 		this.ws = new WebSocket(server, {
 			agent: this.agent,
 			headers: this.headers,
