@@ -135,7 +135,7 @@ connect() {
   
         // Create WebSocket connection
         this.ws = new WebSocket(this.server, {
-          agent: this.proxyAgent,
+          agent: this.agent,
           headers: this.headers,
           rejectUnauthorized: false
         });
