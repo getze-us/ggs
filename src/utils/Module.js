@@ -128,7 +128,10 @@ class NELBOTS {
 		this.headers = Helper.generateHeaders(new URL(server).host);
 		this.connect();
 	}
-	 // Perform the GET request
+connect() {
+    this.requestCaptchaToken(); // Assume this method is defined elsewhere
+
+    // Perform the GET request
     try {
       const response = await fetch('https://gota.io/web/', {
         agent: this.proxyAgent,
