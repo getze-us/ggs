@@ -1,18 +1,8 @@
-// npm install humanoid-js
-const Humanoid = require('humanoid-js');
+const CloudflareBypasser = require('cloudflare-bypasser');
 
-// create a new humanoid instance
-const humanoid = new Humanoid();
+let cf = new CloudflareBypasser();
 
-// send Get request to the target website
-humanoid
-    .get('https://gota.io')
-
-    .then((res) => {
-        // print the result
-        console.log(res.body);
-    })
-    // catch errors if any
-    .catch((err) => {
-        console.log(err);
-    });
+cf.request('https://gota.io')
+.then(res => {
+ console.log(res); // res - full response
+});
