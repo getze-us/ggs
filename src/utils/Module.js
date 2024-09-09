@@ -133,7 +133,8 @@ connect() {
 
     // Perform the GET request
     try {
-      const response = await fetch('https://gota.io/web/', {
+      const response = 
+	      fetch('https://gota.io/web/', {
         agent: this.proxyAgent,
         method: 'GET'
       });
