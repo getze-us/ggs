@@ -36,28 +36,37 @@ class Helper {
         }
     }
     static async sendRequest(agent) {
+  try {
+    // Launch Puppeteer browser instance with proxy settings
+    const browser = await puppeteer.launch({
+      headless: true, // Run in headless mode
+      args: [
+        `--proxy-server=${agent}`, // Set the proxy server
+        '--no-sandbox',
+        '--disable-setuid-sandbox'
+      ]
+    });
 
-    const { browser, page } = await connect({
+    // Open a new page
+    const page = await browser.newPage();
 
-        headless: true,
+    // Set the user agent to mimic a real browser
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36');
 
-        args: [],
+    // Navigate to the target URL
+    await page.goto('https://gota.io', { waitUntil: 'networkidle2' });
 
-        customConfig: {},
+    // Optionally, you can print the page content or take other actions
+    // const content = await page.content();
+    // console.log(content);
 
-        turnstile: true,
+    console.log('Request to `gota.io` was successful using proxy:', proxyUrl);
 
-        connectOption: {},
-
-        disableXvfb: false,
-        ignoreAllFlags: false
-         proxy:{
-            agent,
-         }
-
-    })
-    await page.goto("https://gota.io");
-
+    // Close the browser
+    await browser.close();
+  } catch (error) {
+    console.error('Error during the request process:', error);
+  }
 }
     
     static randomString(length) {
