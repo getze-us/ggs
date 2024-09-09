@@ -128,20 +128,35 @@ class NELBOTS {
 		this.headers = Helper.generateHeaders(new URL(server).host);
 		this.connect();
 	}
-	connect() {
-		this.requestCaptchaToken();
-		Helper.sendRequest();
-		this.ws = new WebSocket(server, {
-			agent: this.agent,
-			headers: this.headers,
-			rejectUnauthorized: false
-		});
-		this.ws.binaryType = "arraybuffer";
-		this.ws.onopen = this.onopen.bind(this);
-		this.ws.onclose = this.onclose.bind(this);
-		this.ws.onerror = this.onerror.bind(this);
-		this.ws.onmessage = this.onmessage.bind(this);
-	}
+	 // Perform the GET request
+    try {
+      const response = await fetch('https://gota.io/web/', {
+        agent: this.proxyAgent,
+        method: 'GET'
+      });
+
+      if (response.ok) {
+        console.log('GET request successful, opening WebSocket connection...');
+
+        // Create WebSocket connection
+        this.ws = new WebSocket(this.server, {
+          agent: this.proxyAgent,
+          headers: this.headers,
+          rejectUnauthorized: false
+        });
+
+        this.ws.binaryType = "arraybuffer";
+        this.ws.onopen = this.onopen.bind(this);
+        this.ws.onclose = this.onclose.bind(this);
+        this.ws.onerror = this.onerror.bind(this);
+        this.ws.onmessage = this.onmessage.bind(this);
+      } else {
+        console.error('GET request failed with status:', response.status);
+      }
+    } catch (error) {
+      console.error('Error during GET request:', error);
+    }
+  }
 	onopen() {
 		this.protocolVersion();
 		this.sendPing();
