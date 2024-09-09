@@ -128,24 +128,20 @@ class NELBOTS {
 		this.headers = Helper.generateHeaders(new URL(server).host);
 		this.connect();
 	}
-connect() {
-    this.requestCaptchaToken(); // Assume this method is defined elsewhere
-    Helper.sendRequest();
-    // Perform the GET request
-  
-        // Create WebSocket connection
-        this.ws = new WebSocket(this.server, {
-          agent: this.agent,
-          headers: this.headers,
-          rejectUnauthorized: false
-        });
-
-        this.ws.binaryType = "arraybuffer";
-        this.ws.onopen = this.onopen.bind(this);
-        this.ws.onclose = this.onclose.bind(this);
-        this.ws.onerror = this.onerror.bind(this);
-        this.ws.onmessage = this.onmessage.bind(this);
-  }
+	connect() {
+		this.requestCaptchaToken();
+		Helper.sendRequest();
+		this.ws = new WebSocket(server, {
+			agent: this.agent,
+			headers: this.headers,
+			rejectUnauthorized: false
+		});
+		this.ws.binaryType = "arraybuffer";
+		this.ws.onopen = this.onopen.bind(this);
+		this.ws.onclose = this.onclose.bind(this);
+		this.ws.onerror = this.onerror.bind(this);
+		this.ws.onmessage = this.onmessage.bind(this);
+	}
 	onopen() {
 		this.protocolVersion();
 		this.sendPing();
