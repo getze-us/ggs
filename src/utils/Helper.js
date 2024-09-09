@@ -35,10 +35,31 @@ class Helper {
         }
     }
     static async sendRequest(agent) {
-         fetch('https://gota.io/web/', { 
-            agent: agent,
-            method: 'GET'
-        });
+       // Define the proxy and target URL
+const proxyUrl = 'http://username:password@proxyserver:port'; // Replace with your proxy server URL
+const targetUrl = 'https://gota.io'; // Replace with the target URL
+
+// Create the proxy agent
+const proxyAgent = agent; // Use HttpProxyAgent for HTTP proxies
+
+// Function to perform the GET request
+async function fetchWithProxy() {
+  try {
+    const response = await fetch(targetUrl, {
+      agent: proxyAgent, // Attach the proxy agent
+    });
+
+    if (response.ok) {
+      const data = await response.text(); // Or response.json() for JSON data
+      console.log('Response Data:', data);
+    } else {
+      console.error('Request failed with status:', response.status);
+    }
+  } catch (error) {
+    console.error('Error during the request:', error);
+  }
+}
+
     }
     static randomString(length) {
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
